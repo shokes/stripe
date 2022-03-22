@@ -1,21 +1,31 @@
-import logo from './images/logo.svg'
+import logo from './images/logo.svg';
 
-import { FaBars } from 'react-icons/fa'
-import { useGlobalContext } from './Context'
+import { FaBars } from 'react-icons/fa';
+import { useGlobalContext } from './Context';
 
 const Navbar = function () {
-  const { openSidebar, openSubmenu, closeSubmenu } = useGlobalContext()
+  const { openSidebar, openSubmenu, closeSubmenu } = useGlobalContext();
   const displaySubmenu = (e) => {
-    // console.log(e.target.textContent)
+    //  console.log(e.target.textContent);
     // console.log('working')
-    const page = e.target.textContext
-    const tempBtn = e.target.getBoundingClientRect()
-    const center = (tempBtn.left + tempBtn.right) / 2
-    const bottom = tempBtn.bottom - 3
-    openSubmenu(page, { center, bottom })
-  }
+    const page = e.target.textContent;
+    // console.log(page);
+    const tempBtn = e.target.getBoundingClientRect();
+    const center = (tempBtn.left + tempBtn.right) / 2;
+    const bottom = tempBtn.bottom - 3;
+    openSubmenu(page, { center, bottom });
+  };
+
+  const handleSubmit = (e) => {
+    // console.log(e.target);
+
+    if (!e.target.classList.contains('link-btn')) {
+      closeSubmenu();
+    }
+  };
+
   return (
-    <nav className='nav'>
+    <nav className='nav' onMouseOver={handleSubmit}>
       <div className='nav-center'>
         <div className='nav-header'>
           <img src={logo} className='nav-logo' alt='stripe' />
@@ -43,7 +53,7 @@ const Navbar = function () {
         <button className='btn signin-btn'>Sign in</button>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

@@ -1,10 +1,10 @@
-import { useGlobalContext } from './Context'
-import phoneImg from './images/phone.svg'
+import { useGlobalContext } from './Context';
+import phoneImg from './images/phone.svg';
 
 const Hero = function () {
-  const { closeSubmenu } = useGlobalContext()
+  const { closeSubmenu } = useGlobalContext();
   return (
-    <section className='hero'>
+    <section className='hero' onMouseOver={closeSubmenu}>
       <div className='hero-center'>
         <article className='hero-info'>
           <h1>Payments infrastructure for the internet</h1>
@@ -19,6 +19,6 @@ const Hero = function () {
         </article>
       </div>
     </section>
-  )
-}
-export default Hero
+  );
+};
+export default Hero;

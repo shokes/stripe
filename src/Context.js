@@ -1,31 +1,36 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext } from 'react';
+import sublinks from './data';
 
 // creating global context
-const AppContext = React.createContext()
+const AppContext = React.createContext();
 
 // creating provider
 
 export const AppProvider = function ({ children }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false)
-  const [location, setLocation] = useState({})
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
+  const [location, setLocation] = useState({});
+  const [page, setPage] = useState({ page: '', links: [] });
 
   const openSidebar = () => {
-    setIsSidebarOpen(true)
-  }
+    setIsSidebarOpen(true);
+  };
 
   const closeSidebar = () => {
-    setIsSidebarOpen(false)
-  }
+    setIsSidebarOpen(false);
+  };
 
   const openSubmenu = (text, coordinates) => {
-    setLocation(coordinates)
-    setIsSubmenuOpen(true)
-  }
+    const page = sublinks.find((link) => link.page === text);
+    // console.log(page);
+    setPage(page);
+    setLocation(coordinates);
+    setIsSubmenuOpen(true);
+  };
 
   const closeSubmenu = () => {
-    setIsSubmenuOpen(false)
-  }
+    setIsSubmenuOpen(false);
+  };
   return (
     <AppContext.Provider
       value={{
@@ -36,15 +41,16 @@ export const AppProvider = function ({ children }) {
         openSubmenu,
         closeSubmenu,
         location,
+        page,
       }}
     >
       {children}
     </AppContext.Provider>
-  )
-}
+  );
+};
 
 // creating custom hook
 
 export const useGlobalContext = function () {
-  return useContext(AppContext)
-}
+  return useContext(AppContext);
+};
